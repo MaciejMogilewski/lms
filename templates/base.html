@@ -7,37 +7,37 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>lms - {% block title %} Welcome {% endblock %}
-    </title>
+
+
+    <title>lms - {% block title %}Welcome{% endblock %}</title>
+
 
 
     {% block styles %}
-     <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}" type="text/css" media="screen">
     {% endblock %}
 
     {% block scripts %}
-     <script src="{%  static 'scripts/bootstrap.min.js' %}" async defer></script>
+    <script src="{% static 'scripts/bootstrap.min.js' %}" async defer></script>
     {% endblock %}
-
-
 </head>
 <body>
 
 {% include 'partials/nav.html' %}
 
-<div class="container">
+
+    <div class="container mt-3">
         <div class="row">
             <div class="col">
-                {% block cointainer %}
 
-                {% endblock %}
+{% block container %}
+
+{% endblock %}
             </div>
-
         </div>
-</div>
+    </div>
 
 
-<h1>Base</h1>
 
 
 </body>
