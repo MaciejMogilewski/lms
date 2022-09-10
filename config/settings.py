@@ -154,6 +154,8 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+AUTH_USER_MODEL = 'user.Account'
+
 # LOGGING = {
 #     "version": 1,
 #     "handlers": {"console": {"class": "logging.StreamHandler"}},
