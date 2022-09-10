@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 
     'user.apps.UserConfig',
     'contact.apps.ContactConfig',
+    'courses.apps.CoursesConfig',
 ]
 
 MIDDLEWARE = [
@@ -93,14 +94,14 @@ DATABASES = {
     }
 }
 
-DATABASE_URL = env('DATABASE_URL')
-db_from_env = dj_database_url.config(
-    default=DATABASE_URL,
-    conn_max_age=500,
-    ssl_require=False
-)
-
-DATABASES['default'].update(db_from_env)
+# DATABASE_URL = env('DATABASE_URL')
+# db_from_env = dj_database_url.config(
+#     default=DATABASE_URL,
+#     conn_max_age=500,
+#     ssl_require=False
+# )
+#
+# DATABASES['default'].update(db_from_env)
 
 
 
