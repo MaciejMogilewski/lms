@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Permission, Group
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -46,9 +46,14 @@ def login_view(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect(reverse_lazy('user:home'))
+                    return redirect(reverse_lazy('contact:form'))
 
     else:
         form = forms.LoginForm()
 
     return render(request, 'user/login.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect(reverse_lazy('user:login'))
