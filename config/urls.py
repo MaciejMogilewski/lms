@@ -23,8 +23,8 @@ from config import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(pattern_name='courses:courses')),
-    path('courses', include('courses.urls')),
-    path('user', include('user.urls')),
+    path('courses/', include('courses.urls')),
+    path('user/', include('user.urls')),
     path('contact/', include('contact.urls')),
 ]
 

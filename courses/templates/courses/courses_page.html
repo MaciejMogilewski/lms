@@ -12,8 +12,8 @@
             {% if user.is_authenticated %}
                 {% if user.id == course.owner_id %}
                     <p class="lead mb-0 btn-group-sm">
-                        <a href="" class="btn btn-danger">Edit course</a>
-                        <a href="" class="btn btn-danger">Delete course</a>
+                        <a href="{% url 'courses:course-update' slug=course.slug %}" class="btn btn-danger">Edit course</a>
+                        <a href="{% url 'courses:course-delete' slug=course.slug %}" class="btn btn-danger">Delete course</a>
                         <a href="" class="btn btn-danger">Edit modules</a>
                     </p>
                 {% else %}
