@@ -12,7 +12,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ course.title }}</h5>
                             <p class="card-text">{{ course.overview }}</p>
-                            <a href="" class="btn btn-primary">See course</a></div>
+                            <a href="{% url 'courses:course-detail' pk=course.pk %}" class="btn btn-primary">See course</a></div>
                     </div>
 
                     {% empty %}
