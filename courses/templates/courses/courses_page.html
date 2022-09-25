@@ -32,4 +32,45 @@
         </div>
     </div>
 
+    <div class="row mt-2">
+        <div class="col">
+            {% if course.modules.count %}
+                <h2>{{ course.title }}'s Modules</h2>
+                <hr>
+                <ul class="nav-pills flex-column">
+                    <div class="accordion" id="accordionExample">
+                        {% for module in course.modules.all %}
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button {% if not forloop.first %}collapsed {% endif %}"
+                                            type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse{{ module.order }}"
+                                            aria-expanded="{% if forloop.first %}true {% else %} false{% endif %}"
+                                            aria-controls="collapse{{ module.order }}">
+                                        {{ module.title }}
+                                    </button>
+                                </h2>
+                                <div id="collapse{{ module.order }}"
+                                     class="accordion-collapse collapse {% if forloop.first %}show {% endif %}"
+                                     aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        {{ module.description }}
+                                        <hr>
+                                        {% if user.is_authenticated %}
+                                            {% for content in module.contents.all %}
+                                                {{ content.item.render }}
+                                            {% endfor %}
+
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+
 {% endblock %}
