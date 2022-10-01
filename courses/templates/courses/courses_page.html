@@ -14,7 +14,7 @@
                     <p class="lead mb-0 btn-group-sm">
                         <a href="{% url 'courses:course-update' slug=course.slug %}" class="btn btn-danger">Edit course</a>
                         <a href="{% url 'courses:course-delete' slug=course.slug %}" class="btn btn-danger">Delete course</a>
-                        <a href="" class="btn btn-danger">Edit modules</a>
+                        <a href="{% url 'courses:course-modules-update' pk=course.pk %}" class="btn btn-danger">Edit modules</a>
                     </p>
                 {% else %}
                     <p class="lead mb-0 btn-group-sm">
@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    <div class="row mt-2">
+    <div class="row mt-2 mb-3">
         <div class="col">
             {% if course.modules.count %}
                 <h2>{{ course.title }}'s Modules</h2>
