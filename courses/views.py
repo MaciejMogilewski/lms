@@ -1,4 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
@@ -76,3 +79,45 @@ class CourseModuleUpdateView(TemplateResponseMixin, View):
             formset.save()
             return redirect(reverse_lazy('courses:courses'))
         return self.render_to_response({'course': self.course, 'formset': formset})
+
+
+@login_required
+def student_enrollment(request, course_slug):
+    if request.method == 'POST':
+        try:
+            course = models.Course.objects.get(slug=course_slug)
+            if course is not None:
+                students = course.students.all()
+                if request.user not in students:
+                    course.students.add(request.user)
+                    messages.add_message(request, messages.SUCCESS, f'You enrolled in {course.title} course!')
+                    return redirect(reverse_lazy('courses:courses'))
+                else:
+                    messages.add_message(request, messages.WARNING, 'You already in this course!')
+                    return redirect(reverse_lazy('courses:courses'))
+            else:
+                messages.add_message(request, messages.WARNING, 'Course does not exist!')
+                return redirect(reverse_lazy('courses:courses'))
+        except ObjectDoesNotExist:
+            messages.add_message(request, messages.ERROR, 'Course not found!')
+            return redirect(reverse_lazy('courses:courses'))
+
+
+class StudentCourseDetailView(DetailView):
+    model = models.Course
+    template_name = 'courses/course_student_view.html'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(students__in=[self.request.user])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        course = self.get_object()
+
+        if 'module_id' in self.kwargs:
+            context['module'] = course.modules.get(id=self.kwargs['module_id'])
+        else:
+            context['module'] = course.modules.first()
+
+        return context

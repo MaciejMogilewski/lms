@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block container %}
+    <div class="row p-4 p-md-5 text-white rounded bg-dark w-100">
+        <div class="col-md-3 col-md-offset-2">
+            <img src="{{ course.course_image.url }}" class="img-thumbnail" alt="">
+        </div>
+        <div class="col-md-9">
+            <h1 class="display-4 font-italic">{{ course.title }}</h1>
+            <p><i>Created by: {{ course.owner.fullname }} at {{ course.created|date }}</i></p>
+            <p class="lead my-3">{{ course.overview }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ module }}
+        </div>
+    </div>
+{% endblock %}

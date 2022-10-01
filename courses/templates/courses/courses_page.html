@@ -19,12 +19,12 @@
                 {% else %}
                     <p class="lead mb-0 btn-group-sm">
                         {% if not user in course.students.all %}
-                            <form action="" method="post">
+                            <form action="{% url 'courses:student-enrolment' course_slug=course.slug %}" method="post">
                                 {% csrf_token %}
                                 <input type="submit" class="btn btn-danger float-end ml-2" value="Take this course">
                             </form>
                         {% else %}
-                            <a href="" class="btn btn-success">View course</a>
+                            <a href="{% url 'courses:student-course-view' pk=course.pk %}" class="btn btn-success">View course</a>
                         {% endif %}
                     </p>
                 {% endif %}
