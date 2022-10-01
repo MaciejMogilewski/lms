@@ -8,14 +8,18 @@
                 {% for course in courses %}
 
                     <div class="card mb-3 me-3" style="max-width: 18rem;">
-                        <img src="{{ course.course_image.url }}" alt="{{ course.title }}" class="card-img-top">
+                        <div class="image-mask-box">
+                            <img src="{{ course.course_image.url }}" alt="{{ course.title }}"
+                                 class="card-img-top image-mask">
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title">{{ course.title }}</h5>
                             <p class="card-text">{{ course.overview }}</p>
-                            <a href="{% url 'courses:course-detail' pk=course.pk %}" class="btn btn-primary">See course</a></div>
+                            <a href="{% url 'courses:course-detail' pk=course.pk %}" class="btn btn-primary">See
+                                course</a></div>
                     </div>
 
-                    {% empty %}
+                {% empty %}
                     <h2>No courses found.</h2>
                 {% endfor %}
             </div>
